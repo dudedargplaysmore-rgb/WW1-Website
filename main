@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive GitHub Code Layout Preview</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-color: #0d1117;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-blue: #58a6ff;
+            --sidebar-bg: #161b22;
+            --code-bg: #161b22;
+            --header-bg: #161b22;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* Top Navigation Header */
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo-placeholder {
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Main Container: Grid layout for Sidebar and Content */
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 57px);
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+        }
+        .sidebar-heading {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+        .file-tree {
+            list-style: none;
+        }
+        .file-tree li {
+            padding: 6px 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .file-tree li:hover {
+            background-color: #21262d;
+            color: var(--accent-blue);
+        }
+
+        /* Main Code Area Content */
+        main {
+            padding: 24px;
+            overflow-x: hidden;
+        }
+        .repo-header {
+            margin-bottom: 20px;
+        }
+        .repo-title {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--accent-blue);
+        }
+        .repo-title span {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        /* Code Container Box */
+        .code-box {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--code-bg);
+            overflow: hidden;
+        }
+        .code-header {
+            background-color: #161b22;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 16px;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+        .code-body {
+            padding: 16px;
+            overflow-x: auto;
+        }
+        pre {
+            font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+            font-size: 14px;
+            color: #e6edf3;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            /* Collapse side-by-side view into a vertical stack on mobile devices */
+            .container {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+            main {
+                padding: 16px;
+            }
+            .nav-links {
+                display: none; /* Hide auxiliary links to save space */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header navigation layer -->
+    <header>
+        <div class="logo-placeholder">
+            <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" fill="currentColor">
+                <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82A7.41 7.41 0 0 0 8 4c-.68.003-1.35.093-2 .28-1.53-1.04-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.35 3.12.88.01.47.01.84.01.93 0 .22-.15.47-.55.38A8.006 8.006 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+            </svg>
+            <span>GibHub</span>
+        </div>
+        <div class="nav-links">
+            <span>Pull Requests</span>
+            <span>Issues</span>
+            <span>Marketplace</span>
+        </div>
+    </header>
+
+    <!-- Structural Grid Wrapper -->
+    <div class="container">
+        
+        <!-- Sidebar Explorer Pane -->
+        <aside>
+            <div class="sidebar-heading">📁 gibberish-project</div>
+            <ul class="file-tree">
+                <li>📄 blarg_core.js</li>
+                <li>📄 flim_flam.py</li>
+                <li>📄 wibble_wobble.css</li>
+                <li>📄 README.md</li>
+                <li>📄 config_gargle.json</li>
+            </ul>
+        </aside>
+
+        <!-- Primary Code Viewer Block -->
+        <main>
+            <div class="repo-header">
+                <h1 class="repo-title">username / <span>gibberish-project</span></h1>
+            </div>
+
+            <div class="code-box">
+                <div class="code-header">
+                    <div>flim_flam.py</div>
+                    <div>15 lines | 312 Bytes</div>
+                </div>
+                <div class="code-body">
+<pre><code>def gargle_blaster(wibble, wobble):
+    # This is a sample response container preview layout
+    foo = "lorem_ipsum_dolor_sit_amet"
+    bar = 42 + xaxa_baba_qux(wibble)
+    
+    if bar > 9000:
+        print("skibidi_rigmarole_detected")
+        return wobble * 1.18
+        
+    for gibberish in range(0, len(foo)):
+        wobble += ord(foo[gibberish])
+        
+    return fallback_razzle_dazzle(wobble)
+
+# End of placeholder file preview structural layout</code></pre>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>
